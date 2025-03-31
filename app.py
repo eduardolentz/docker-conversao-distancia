@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import logging
-import socket  # Módulo para obter informações do servidor
+import socket
 
 app = Flask(__name__,
             static_url_path='', 
@@ -9,7 +9,6 @@ app = Flask(__name__,
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # Obter informações do servidor
     hostname = socket.gethostname()
     ip_address = socket.gethostbyname(hostname)
 
@@ -24,23 +23,22 @@ def index():
         except ValueError:
             return render_template('index.html', conteudo={'unidade': 'inválido', 'valor': 'Entrada inválida'}, hostname=hostname, ip_address=ip_address)
 
-        # Lógica de conversão
-        if selecao == '1':  # Metro para Quilômetros
+        if selecao == '1':
             resultado = valor / 1000
             unidade = "quilômetros"
-        elif selecao == '2':  # Quilômetros para Metro
+        elif selecao == '2':
             resultado = valor * 1000
             unidade = "metros"
-        elif selecao == '3':  # Metro para Milhas
+        elif selecao == '3':
             resultado = valor / 1609.34
             unidade = "milhas"
-        elif selecao == '4':  # Milhas para Metro
+        elif selecao == '4':
             resultado = valor * 1609.34
             unidade = "metros"
-        elif selecao == '5':  # Metro para Pés
+        elif selecao == '5':
             resultado = valor * 3.28084
             unidade = "pés"
-        elif selecao == '6':  # Pés para Metro
+        elif selecao == '6':
             resultado = valor / 3.28084
             unidade = "metros"
         else:
